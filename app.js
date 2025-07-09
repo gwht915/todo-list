@@ -6,6 +6,11 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+const exphbs = require('express-handlebars');
+
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
+
 const mongoose = require('mongoose') // 載入 mongoose
 //mongoose.connect(process.env.MONGODB_URI) // 設定連線到 mongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -22,9 +27,13 @@ db.once('open', () => {
 })
 
 // routes setting
-
+/*
 app.get('/', (req, res) => {
   res.send('This is my todo list built with Express')
+}) */
+
+app.get('/', (req, res) => {
+  res.render('index')
 })
 
 app.get('/todos', (req, res) => {
