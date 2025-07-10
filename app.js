@@ -14,7 +14,8 @@ app.set('view engine', 'hbs')
 const Todo = require('./models/todo') // 載入 Todo model
 
 const mongoose = require('mongoose'); // 載入 mongoose
-const todo = require('./models/todo');
+//const todo = require('./models/todo');
+
 //mongoose.connect(process.env.MONGODB_URI) // 設定連線到 mongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
