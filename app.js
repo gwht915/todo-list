@@ -69,9 +69,18 @@ app.post('/todos', (req, res) => {
 })
 
 app.get('/todos/:id', (req, res) => {
+  const id = req.params.id
+  console.log(`id = ${id}`)
+  return Todo.findById(id)
+    .lean()
+    .then((todo) => res.render('detail', { todo }))
+    .catch(error => console.log(error))
+})
+/*
+app.get('/todos/:id', (req, res) => {
   res.send(`get todo: ${req.params.id}`)
 })
-
+*/
 app.get('/todos/:id/edit', (req, res) => {
   res.send(`get todo edit: ${req.params.id}`)
 })
