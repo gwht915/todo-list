@@ -105,7 +105,29 @@ app.post('/todos/:id/edit', (req, res) => {
     .then(() => res.redirect(`/todos/${id}`))
     .catch(error => console.log(error))
 })
+/*
+app.post('/todos/:id/delete', (req, res) => {
+  const id = req.params.id
+  console.log(`id 111 = ${id}`)
+  return Todo.findById(id)
+    .then(todo => todo.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+    */
 
+app.post('/todos/:id/delete', (req, res) => {
+  const id = req.params.id
+  Todo.findById(id, (err, todo) => {
+    if (err) return console.error(err)
+      todo.remove(err => {
+        if (err) return console.log(err)
+          return res.redirect('/')
+    })
+  })
+})
+  
+/*
 app.put('/todos/:id', (req, res) => {
   res.send('modify todo')
 })
@@ -113,6 +135,7 @@ app.put('/todos/:id', (req, res) => {
 app.delete('/todos/:id', (req, res) => {
   res.send('delete todo')
 })
+*/
 
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)
