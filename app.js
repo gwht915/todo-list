@@ -94,6 +94,7 @@ app.get('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+/*
 app.post('/todos/:id/edit', (req, res) => {
   const id = req.params.id
   const name = req.body.name
@@ -105,17 +106,43 @@ app.post('/todos/:id/edit', (req, res) => {
     .then(() => res.redirect(`/todos/${id}`))
     .catch(error => console.log(error))
 })
+*/
+
+app.post('/todos/:id/edit', (req, res) => {
+  const id = req.params.id
+  const { name, isDone } = req.body
+  //console.log(`req.body=${req.body}`)
+  //console.log(`req=${req.body.name}, ${req.body.isDone}`)
+  return Todo.findById(id)
+    .then(todo => {
+      todo.name = name
+      todo.isDone = isDone === 'on'
+      return todo.save()
+    })
+    .then(() => res.redirect(`/todos/${id}`))
+    .catch(error => console.log(error))
+})
+
+app.post('/todos/:id/delete', (req, res) => {
+  const id = req.params.id
+  console.log(`id 111 = ${id}`)
+  return Todo.findByIdAndDelete(id)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 /*
 app.post('/todos/:id/delete', (req, res) => {
   const id = req.params.id
   console.log(`id 111 = ${id}`)
   return Todo.findById(id)
-    .then(todo => todo.remove())
+    .then(todo => todo.deleteOne())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
-    */
-
+*/
+   
+/*
 app.post('/todos/:id/delete', (req, res) => {
   const id = req.params.id
   Todo.findById(id, (err, todo) => {
@@ -126,7 +153,7 @@ app.post('/todos/:id/delete', (req, res) => {
     })
   })
 })
-  
+*/  
 /*
 app.put('/todos/:id', (req, res) => {
   res.send('modify todo')
