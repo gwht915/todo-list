@@ -2,6 +2,11 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+// 引用路由器
+const routes = require('./routes')
+// 將 request 導入路由器
+app.use(routes)
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -46,8 +51,10 @@ app.use(methodOverride('_method'))
 /*
 app.get('/', (req, res) => {
   res.send('This is my todo list built with Express')
-}) */
+}) 
+*/
 
+/*
 app.get('/', (req, res) => {
   //res.render('index')
   Todo.find() // 取出 Todo model 裡的所有資料
@@ -56,7 +63,8 @@ app.get('/', (req, res) => {
     .then(todos => res.render('index', { todos })) // 將資料傳給 index 樣板
     .catch(error => console.error(error)) // 錯誤處理
 })
-
+*/
+/*
 app.get('/todos/new', (req, res) => {
   return res.render('new')
 })
@@ -82,6 +90,8 @@ app.get('/todos/:id', (req, res) => {
     .then((todo) => res.render('detail', { todo }))
     .catch(error => console.log(error))
 })
+    */
+
 /*
 app.get('/todos/:id', (req, res) => {
   res.send(`get todo: ${req.params.id}`)
@@ -92,13 +102,14 @@ app.get('/todos/:id/edit', (req, res) => {
 })
 
 */
+/*
 app.get('/todos/:id/edit', (req, res) => {
   const id = req.params.id
   return Todo.findById(id)
     .lean()
     .then((todo) => res.render('edit', { todo }))
     .catch(error => console.log(error))
-})
+}) */
 
 /*
 app.post('/todos/:id/edit', (req, res) => {
@@ -114,6 +125,7 @@ app.post('/todos/:id/edit', (req, res) => {
 })
 */
 
+/*
 //app.post('/todos/:id/edit', (req, res) => {
 app.put('/todos/:id', (req, res) => {
   const id = req.params.id
@@ -137,7 +149,7 @@ app.delete('/todos/:id', (req, res) => {
   return Todo.findByIdAndDelete(id)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
-})
+}) */
 
 /*
 app.post('/todos/:id/delete', (req, res) => {
