@@ -18,6 +18,9 @@ const mongoose = require('mongoose'); // 載入 mongoose
 // 引用 body - parser
 const bodyParser = require('body-parser')
 
+  // 載入 method-override
+const methodOverride = require('method-override')
+
 //const todo = require('./models/todo');
 
 //mongoose.connect(process.env.MONGODB_URI) // 設定連線到 mongoDB
@@ -37,6 +40,8 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+// 設定每一筆請求都會透過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
 // routes setting
 /*
 app.get('/', (req, res) => {
@@ -109,11 +114,12 @@ app.post('/todos/:id/edit', (req, res) => {
 })
 */
 
-app.post('/todos/:id/edit', (req, res) => {
+//app.post('/todos/:id/edit', (req, res) => {
+app.put('/todos/:id', (req, res) => {
   const id = req.params.id
   const { name, isDone } = req.body
-  //console.log(`req.body=${req.body}`)
-  //console.log(`req=${req.body.name}, ${req.body.isDone}`)
+  console.log(`req.body=${req.body}`)
+  console.log(`req=${req.body.name}, ${req.body.isDone}`)
   return Todo.findById(id)
     .then(todo => {
       todo.name = name
@@ -124,7 +130,8 @@ app.post('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/todos/:id/delete', (req, res) => {
+//app.post('/todos/:id/delete', (req, res) => {
+app.delete('/todos/:id', (req, res) => {
   const id = req.params.id
   console.log(`id 111 = ${id}`)
   return Todo.findByIdAndDelete(id)
