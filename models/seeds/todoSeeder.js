@@ -1,5 +1,9 @@
-const mongoose = require('mongoose')
+//const mongoose = require('mongoose')
+
 const Todo = require('../todo') // 載入 todo model
+const db = require('../../config/mongoose')
+
+/*
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -9,6 +13,8 @@ const db = mongoose.connection
 db.on('error', () => {
   console.log('mongodb error!')
 })
+*/
+
 db.once('open', () => {
   console.log('mongodb connected!')
   
